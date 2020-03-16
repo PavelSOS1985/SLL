@@ -121,8 +121,14 @@ public class LinkedList {
         Node node = this.head;
         while (node != null) {
             if (node.value == _nodeAfter.value) {
-                _nodeToInsert.next = node.next;
-                node.next = _nodeToInsert;
+                if (node.next != null) {
+                    _nodeToInsert.next = node.next;
+                    node.next = _nodeToInsert;
+                } else {
+                    node.next = _nodeToInsert;
+                    this.tail = _nodeToInsert;
+                }
+
                 return;
             }
             node = node.next;
