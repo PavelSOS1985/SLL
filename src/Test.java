@@ -1,132 +1,60 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Test {
-    public static LinkedList createSLL(int N) {
+    public static LinkedList SummLists(LinkedList _firstList, LinkedList _secondList) {
         LinkedList resList = new LinkedList();
-        for (int i = 0; i < N; i++) {
-            Node n = new Node((int) (Math.random() * 10));
-            resList.addInTail(n);
+        if (_firstList.count() != _secondList.count()) {
+            return resList;
+        }
+
+        Node nodeFirst = _firstList.head;
+        Node nodeSecond = _secondList.head;
+
+        while (nodeFirst != null) {
+            Node nodeRes = new Node(nodeFirst.value + nodeSecond.value);
+            resList.addInTail(nodeRes);
+
+            nodeFirst = nodeFirst.next;
+            nodeSecond = nodeSecond.next;
         }
         return resList;
     }
 
-    public static void testRemove(LinkedList testList) {
-        System.out.println("================= Test Remove ===================");
-        System.out.println("Enter Remove Value (99-exit):");
-        Scanner in = new Scanner(System.in);
-        int v = in.nextInt();
-        while (v != 99) {
-            System.out.println(testList.remove(v));
-            Node node = testList.head;
-            int i = 0;
-            while (node != null) {
-                System.out.println(i + " - " + node.value);
-                node = node.next;
-                i++;
-            }
-            System.out.println("head = " + testList.head);
-            System.out.println("tail = " + testList.tail);
-            v = in.nextInt();
+    public static void testSummLists_1() {
+        System.out.println("=== Test 1 ===");
+
+        LinkedList firstList = new LinkedList();
+        LinkedList secondList = new LinkedList();
+
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node n3 = new Node(3);
+
+        Node n4 = new Node(4);
+        Node n5 = new Node(5);
+        Node n6 = new Node(6);
+
+        firstList.addInTail(n1);
+        firstList.addInTail(n2);
+        firstList.addInTail(n3);
+
+        secondList.addInTail(n4);
+        secondList.addInTail(n5);
+        secondList.addInTail(n6);
+
+        LinkedList testList = SummLists(firstList, secondList);
+
+        Node testNode = testList.head;
+        int i = 5;
+        boolean res = true;
+        while (testNode != null) {
+            if (i != testNode.value) res = false;
+            testNode = testNode.next;
+            i+=2;
         }
-
-    }
-
-    public static void testRemoveAll(LinkedList testList) {
-        System.out.println("================= Test Remove All ===================");
-        System.out.println("Enter Remove Value (99-exit):");
-        Scanner in = new Scanner(System.in);
-        int v = in.nextInt();
-        while (v != 99) {
-            testList.removeAll(v);
-            Node node = testList.head;
-            int i = 0;
-            while (node != null) {
-                System.out.println(i + " - " + node.value);
-                node = node.next;
-                i++;
-            }
-            System.out.println("head = " + testList.head);
-            System.out.println("tail = " + testList.tail);
-            v = in.nextInt();
-        }
-
-    }
-
-    public static void testFindAll(LinkedList testList) {
-        System.out.println("================= Test Find All ===================");
-        System.out.println("Enter Find Value (99-exit):");
-        Scanner in = new Scanner(System.in);
-        int v = in.nextInt();
-        while (v != 99) {
-            ArrayList<Node> resList = new ArrayList<>();
-            resList = testList.findAll(v);
-            for (Node i :
-                    resList) {
-                System.out.println(i);
-            }
-            System.out.println("head = " + testList.head);
-            System.out.println("tail = " + testList.tail);
-            v = in.nextInt();
-        }
-
-    }
-
-    public static void testClear(LinkedList testList) {
-        System.out.println("================= Test Clear ===================");
-        testList.clear();
-        Node node = testList.head;
-        int i = 0;
-        while (node != null) {
-            System.out.println(i + " - " + node.value);
-            node = node.next;
-            i++;
-        }
-        System.out.println("head = " + testList.head);
-        System.out.println("tail = " + testList.tail);
-    }
-
-    public static void testCount(LinkedList testList) {
-        System.out.println("================= Test Count ===================");
-        System.out.println(testList.count());
-    }
-
-    public static void testInsertAfter(LinkedList testList) {
-        System.out.println("================= Test Insert After ===================");
-        Node n1 = new Node(3);
-        Node n2 = new Node(88);
-        testList.insertAfter(n1, n2);
-        Node node = testList.head;
-        int i = 0;
-        while (node != null) {
-            System.out.println(i + " - " + node.value);
-            node = node.next;
-            i++;
-        }
-        System.out.println("head = " + testList.head);
-        System.out.println("tail = " + testList.tail);
+        System.out.println(res);
     }
 
     public static void main(String[] args) {
-        System.out.println("==== Tests Run ====");
-        int N = (int) (Math.random() * 10);
-        LinkedList testList = createSLL(N);
-        Node node = testList.head;
-        int i = 0;
-        while (node != null) {
-            System.out.println(i + " - " + node.value);
-            node = node.next;
-            i++;
-        }
-        //testRemoveAll(testList);
-        //testFindAll(testList);
-        testClear(testList);
-        //testCount(testList);
-        //testRemove(testList);
-        //testCount(testList);
-        //testRemove(testList);
-        //testCount(testList);
-        //testInsertAfter(testList);
+        testSummLists_1();
     }
 }
